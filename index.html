@@ -206,25 +206,36 @@
   .plan-header .sub{color:var(--text-faint);font-size:12px;font-family:'JetBrains Mono',monospace;}
 
   .grid-scroll{overflow-x:auto;}
-  table.plan{width:100%;border-collapse:collapse;min-width:720px;}
-  table.plan th, table.plan td{border:1px solid var(--border-soft);}
-  table.plan thead th{
+  .plan-grid{
+    display:grid;
+    grid-template-columns: 78px repeat(5, minmax(120px,1fr));
+    min-width:720px;
+    border-top:1px solid var(--border-soft);
+    border-left:1px solid var(--border-soft);
+  }
+  .grid-cell{
+    border-right:1px solid var(--border-soft);
+    border-bottom:1px solid var(--border-soft);
+    box-sizing:border-box;
+  }
+  .grid-head{
     background:var(--panel-2);
     font-family:'Inter',sans-serif;font-size:15px;font-weight:800;
     letter-spacing:.5px;text-transform:uppercase;
     padding:12px 8px;color:var(--text);position:relative;
+    display:flex;align-items:center;justify-content:center;
   }
-  table.plan thead th::after{
+  .grid-head::after{
     content:'';position:absolute;left:14%;right:14%;bottom:0;height:2px;
     background:var(--red);opacity:.7;
   }
-  table.plan thead th.hcol{
+  .grid-head.hcol{
     background:var(--bg-elevated);font-family:'JetBrains Mono',monospace;
-    font-size:10px;color:var(--text-faint);letter-spacing:1px;
+    font-size:10px;color:var(--text-faint);letter-spacing:1px;font-weight:600;
   }
-  table.plan tbody th{
-    background:var(--bg-elevated);width:78px;text-align:center;padding:6px 4px;
-    vertical-align:middle;
+  .grid-stunde{
+    background:var(--bg-elevated);text-align:center;padding:6px 4px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
   }
   .stunde-badge{
     width:26px;height:26px;border-radius:50%;background:var(--panel-2);
@@ -232,23 +243,28 @@
     font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;
     display:flex;align-items:center;justify-content:center;margin:0 auto 4px;
   }
-  .stunde-zeit{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--text-faint);line-height:1.4;}
+  .stunde-zeit{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--text-faint);line-height:1.4;text-align:center;}
 
-  table.plan td.cell{
-    padding:4px;vertical-align:top;height:64px;min-width:120px;
-  }
+  .grid-slot{min-height:64px;}
+
   .entry-block{
-    border-radius:6px;padding:6px 8px;height:100%;
+    border-radius:6px;padding:6px 8px;
+    margin:3px;height:calc(100% - 6px);box-sizing:border-box;
     display:flex;flex-direction:column;justify-content:center;gap:1px;
     border-left:3px solid rgba(255,255,255,.4);
+    position:relative;z-index:2;overflow:hidden;
   }
   .entry-block .fach{font-size:12.5px;font-weight:800;color:#fff;line-height:1.15;}
   .entry-block .meta{font-size:10.5px;color:rgba(255,255,255,.8);line-height:1.3;}
   .entry-block.merged{justify-content:center;padding:8px;}
   .entry-block.merged .fach{font-size:13.5px;}
   .entry-block .zeitspanne{font-size:9.5px;color:rgba(255,255,255,.65);font-family:'JetBrains Mono',monospace;margin-top:3px;}
-  .entry-block.spanned{justify-content:center;}
-  .entry-block .meta.zeit{opacity:.8;margin-top:3px;font-family:'JetBrains Mono',monospace;letter-spacing:.3px;}
+
+  .grid-entry-multi{
+    margin:3px;height:calc(100% - 6px);box-sizing:border-box;
+    display:flex;flex-direction:column;gap:3px;position:relative;z-index:2;
+  }
+  .grid-entry-multi .entry-block{margin:0;height:auto;flex:1;}
 
   .plan-empty{padding:60px 20px;text-align:center;color:var(--text-faint);}
   .plan-empty b{color:var(--text-dim);display:block;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:6px;}
@@ -278,24 +294,26 @@
     .print-only .p-date{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#555;}
 
     .grid-scroll{overflow:visible;background:#fff !important;}
-    table.plan{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;background:#fff !important;}
-    table.plan thead{display:table-header-group;}
-    table.plan tr{break-inside:avoid;page-break-inside:avoid;}
-    table.plan thead th{
+    .plan-grid{
+      width:100%;min-width:0;background:#fff !important;
+      border-top:1px solid #999;border-left:1px solid #999;
+    }
+    .grid-cell{border-right:1px solid #ccc;border-bottom:1px solid #ccc;break-inside:avoid;page-break-inside:avoid;}
+    .grid-head{
       background:#f0f0f0 !important;color:#000;
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
-      border:1px solid #999;
+      border-right:1px solid #999;border-bottom:1px solid #999;
     }
-    table.plan thead th::after{background:#000;}
-    table.plan thead th.hcol{background:#fff !important;color:#777;}
-    table.plan tbody th{
-      background:#f7f7f7 !important;color:#000;width:56px;
+    .grid-head::after{background:#000;}
+    .grid-head.hcol{background:#fff !important;color:#777;}
+    .grid-stunde{
+      background:#f7f7f7 !important;color:#000;
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
-      border:1px solid #999;
+      border-right:1px solid #999;border-bottom:1px solid #999;
     }
     .stunde-badge{border-color:#000;color:#000;background:#fff;}
     .stunde-zeit{color:#555;}
-    table.plan td.cell{border:1px solid #ccc;height:auto;min-height:46px;padding:3px;background:#fff !important;}
+    .grid-slot{min-height:46px;background:#fff !important;}
 
     .entry-block{
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
@@ -388,7 +406,7 @@
       </div>
     </div>
     <div class="grid-scroll">
-      <table class="plan" id="planTable"></table>
+      <div class="plan-grid" id="planGrid"></div>
     </div>
   </div>
 </main>
@@ -652,16 +670,37 @@
 
   /* ---------------- Stundenplan-Grid ---------------- */
   function renderPlan(){
-    const table = $('#planTable');
-    table.innerHTML = '';
+    const grid = $('#planGrid');
+    grid.innerHTML = '';
+    grid.style.gridTemplateRows = `auto repeat(${state.maxStunden}, minmax(64px, auto))`;
 
-    const thead = document.createElement('thead');
-    const trh = document.createElement('tr');
-    trh.innerHTML = '<th class="hcol">Std.</th>' + TAGE.map(t=>`<th>${t}</th>`).join('');
-    thead.appendChild(trh);
-    table.appendChild(thead);
+    // Kopfzeile
+    const headStd = document.createElement('div');
+    headStd.className = 'grid-cell grid-head hcol';
+    headStd.textContent = 'Std.';
+    headStd.style.gridColumn = '1';
+    headStd.style.gridRow = '1';
+    grid.appendChild(headStd);
 
-    const tbody = document.createElement('tbody');
+    TAGE.forEach((tag,i)=>{
+      const h = document.createElement('div');
+      h.className = 'grid-cell grid-head';
+      h.textContent = tag;
+      h.style.gridColumn = String(i+2);
+      h.style.gridRow = '1';
+      grid.appendChild(h);
+    });
+
+    // Stunden-Label-Spalte
+    for(let s=1;s<=state.maxStunden;s++){
+      const z = state.zeiten[s-1] || {start:'--:--',end:'--:--'};
+      const cell = document.createElement('div');
+      cell.className = 'grid-cell grid-stunde';
+      cell.style.gridColumn = '1';
+      cell.style.gridRow = String(s+1);
+      cell.innerHTML = `<div class="stunde-badge">${s}</div><div class="stunde-zeit">${z.start}<br>${z.end}</div>`;
+      grid.appendChild(cell);
+    }
 
     // Alle Treffer pro Tag/Stunde vorab ermitteln
     const matches = {};
@@ -677,19 +716,23 @@
     const consumed = {};
     TAGE.forEach(tag=> consumed[tag] = new Set());
 
-    for(let s=1;s<=state.maxStunden;s++){
-      const tr = document.createElement('tr');
-      const z = state.zeiten[s-1] || {start:'--:--',end:'--:--'};
-      const th = document.createElement('th');
-      th.innerHTML = `<div class="stunde-badge">${s}</div><div class="stunde-zeit">${z.start}<br>${z.end}</div>`;
-      tr.appendChild(th);
+    // Hintergrund-Zellen für die Gitterlinien (jede Stunde/Tag-Position)
+    TAGE.forEach((tag, di)=>{
+      for(let s=1;s<=state.maxStunden;s++){
+        const bg = document.createElement('div');
+        bg.className = 'grid-cell grid-slot';
+        bg.style.gridColumn = String(di+2);
+        bg.style.gridRow = String(s+1);
+        grid.appendChild(bg);
+      }
+    });
 
-      TAGE.forEach(tag=>{
-        if(consumed[tag].has(s)) return;
-
-        const td = document.createElement('td');
-        td.className = 'cell';
+    // Fach-Blöcke (liegen über den Hintergrund-Zellen, spannen bei Bedarf mehrere Stunden)
+    TAGE.forEach((tag, di)=>{
+      for(let s=1;s<=state.maxStunden;s++){
+        if(consumed[tag].has(s)) continue;
         const treffer = matches[tag][s];
+        if(treffer.length === 0) continue;
 
         if(treffer.length === 1){
           const en = treffer[0];
@@ -700,9 +743,10 @@
               span++; consumed[tag].add(next); next++;
             } else break;
           }
-          if(span>1) td.rowSpan = span;
           const block = document.createElement('div');
           block.className = 'entry-block' + (span>1 ? ' merged' : '');
+          block.style.gridColumn = String(di+2);
+          block.style.gridRow = `${s+1} / span ${span}`;
           block.style.background = `linear-gradient(155deg, ${hexToRgba(en.farbe,.95)}, ${hexToRgba(en.farbe,.65)})`;
           block.style.borderLeftColor = en.farbe;
           const zeitInfo = span>1
@@ -713,8 +757,12 @@
             <div class="meta">${[en.lehrer, en.raum].filter(Boolean).map(escapeHtml).join(' · ')}</div>
             ${zeitInfo}
           `;
-          td.appendChild(block);
-        } else if(treffer.length > 1){
+          grid.appendChild(block);
+        } else {
+          const wrap = document.createElement('div');
+          wrap.className = 'grid-entry-multi';
+          wrap.style.gridColumn = String(di+2);
+          wrap.style.gridRow = `${s+1} / span 1`;
           treffer.forEach(en=>{
             const block = document.createElement('div');
             block.className = 'entry-block';
@@ -724,14 +772,12 @@
               <div class="fach">${escapeHtml(en.titel)}</div>
               <div class="meta">${[en.lehrer, en.raum].filter(Boolean).map(escapeHtml).join(' · ')}</div>
             `;
-            td.appendChild(block);
+            wrap.appendChild(block);
           });
+          grid.appendChild(wrap);
         }
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
-    }
-    table.appendChild(tbody);
+      }
+    });
 
     $('#planSub').textContent = state.eintraege.length + (state.eintraege.length===1 ? ' EINTRAG' : ' EINTRÄGE');
   }
