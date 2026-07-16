@@ -297,30 +297,33 @@
     .plan-grid{
       width:100%;min-width:0;background:#fff !important;
       border-top:1px solid #999;border-left:1px solid #999;
+      grid-template-columns: 40px repeat(5, 1fr) !important;
     }
-    .grid-cell{border-right:1px solid #ccc;border-bottom:1px solid #ccc;break-inside:avoid;page-break-inside:avoid;}
+    .grid-cell{border-right:1px solid #ccc;border-bottom:1px solid #ccc;break-inside:avoid;page-break-inside:avoid;overflow:hidden;}
     .grid-head{
-      background:#f0f0f0 !important;color:#000;
+      background:#f0f0f0 !important;color:#000;font-size:12px;padding:8px 4px;
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
       border-right:1px solid #999;border-bottom:1px solid #999;
     }
+    .grid-head.hcol{font-size:8.5px;}
     .grid-head::after{background:#000;}
     .grid-head.hcol{background:#fff !important;color:#777;}
     .grid-stunde{
-      background:#f7f7f7 !important;color:#000;
+      background:#f7f7f7 !important;color:#000;padding:4px 2px;
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
       border-right:1px solid #999;border-bottom:1px solid #999;
     }
-    .stunde-badge{border-color:#000;color:#000;background:#fff;}
-    .stunde-zeit{color:#555;}
+    .stunde-badge{border-color:#000;color:#000;background:#fff;width:20px;height:20px;font-size:10px;}
+    .stunde-zeit{color:#555;font-size:8px;}
     .grid-slot{min-height:46px;background:#fff !important;}
 
     .entry-block{
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
-      border-left-width:3px;border-radius:4px;
+      border-left-width:3px;border-radius:4px;padding:4px 5px;
+      word-break:break-word;overflow-wrap:break-word;
     }
-    .entry-block .fach{color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    .entry-block .meta, .entry-block .zeitspanne{color:rgba(255,255,255,.9);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .entry-block .fach{color:#fff;font-size:11px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .entry-block .meta, .entry-block .zeitspanne{color:rgba(255,255,255,.9);font-size:9px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   }
 </style>
 </head>
